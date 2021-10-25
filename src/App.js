@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import Block from './elements/block';
+import { useState } from 'react';
+
 
 function App() {
+  const [blocks, setBlocks] = useState([])
+
+  const [title, setTitle] = useState("")
+  const [code, setCode] = useState("")
+
+  function addBlock() {
+    setBlocks([...blocks, {title:title, code:code}]) 
+  }
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  
+      <input placeholder="Enter block title" onChange={(e) => setTitle(e.target.value)}/>
+      <br/>
+      <textarea placeholder="Enter Code" onChange={(e) => setCode(e.target.value)}/>
+      <br/>
+      <button onClick={addBlock}>Add Block</button>
+      <br/>
+
+      {blocks.map(block => {
+        return <Block title={block.title} code={block.code}/>
+      })}
     </div>
   );
 }
