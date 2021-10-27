@@ -1,6 +1,6 @@
 import Block from './elements/block';
+import ResponsiveDrawer from './elements/drawer';
 import { useState } from 'react';
-
 
 function App() {
   const [blocks, setBlocks] = useState([])
@@ -13,10 +13,9 @@ function App() {
   }
 
 
-
   return (
     <div className="App">
-  
+      <ResponsiveDrawer blocks={blocks}/>
       <input placeholder="Enter block title" onChange={(e) => setTitle(e.target.value)}/>
       <br/>
       <textarea placeholder="Enter Code" onChange={(e) => setCode(e.target.value)}/>

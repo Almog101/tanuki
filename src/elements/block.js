@@ -8,20 +8,21 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { darcula } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 
 const useStyles = makeStyles({
   block: {
-    backgroundColor: "blue",
     width: "275px"
   },
   blockInfo: {
-
   },
   blockCode: {
-
   }
 });
 
@@ -34,29 +35,37 @@ function Code({code}) {
 };
 
 
-export default function Block({title, code}) {
+export default function Block({title, code, draggable=true}) {
   const classes = useStyles();
-  return (
-    <Draggable>
-      <Card className={classes.block}>
+
+  const block = () => {
+    return (
+      <Card className={classes.block} elevation={8}>
         <CardContent>
-          <Paper>
             <Typography>
               {title}
             </Typography>
-          </Paper>
           
-          <Paper>
-            <Typography>
-              <Code code={code}/>
-            </Typography>
-          </Paper>
+            <Code code={code}/>
         </CardContent>
 
         <CardActions>
-          <Button size="small">Learn More</Button>
+          <IconButton aria-label="Example">
+            <DeleteIcon/>
+          </IconButton>
+
         </CardActions>
       </Card>
-    </Draggable>
-  );
+    );
+  }
+
+  const draggableBlock = () => {
+    return (
+      <Draggable>
+        {block()}
+      </Draggable>
+    );
+  }
+
+  return (draggable ? draggableBlock() :block());
 }
